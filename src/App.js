@@ -29,9 +29,9 @@ class App extends Component {
     this.setState(
       {
         persons: [
-          {name: 'Timothy', age: 21},
+          {name: event.target.value, age: 21},
           {name: event.target.value, age: 3},
-          {name: 'ADUN', age: 79},
+          {name: event.target.value, age: 79},
         ],
       }
       )
@@ -42,13 +42,17 @@ class App extends Component {
   return(
     <div className="App">
       <h1>HI, I AM A REACT JS DEVELOPER</h1>
-      <Person name = {this.state.persons[0].name} age = {this.state.persons[0].age}></Person>
+      <Person
+      changed = {this.nameChangeHandler} 
+      name = {this.state.persons[0].name} 
+      age = {this.state.persons[0].age}></Person>
       <Person
       changed = {this.nameChangeHandler}
       clicked = {()=>this.switchNameHandler('PATH')}
        name = {this.state.persons[1].name} 
        age = {this.state.persons[1].age}></Person>
-      <Person 
+      <Person
+      changed = {this.nameChangeHandler} 
       name = {this.state.persons[2].name} 
       age = {this.state.persons[2].age}></Person>
       <button onClick={this.switchNameHandler.bind(this, 'ADUN!!##$$')}>SWITCH NAME</button>

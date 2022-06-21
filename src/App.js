@@ -11,54 +11,75 @@ class App extends Component {
       {name: 'donga', age: 77},
       {name: 'kendrick', age: 7},
     ],
-    otherState: 'something'
+    showPersons: false
   }
 
   switchNameHandler = (newName) =>{
-    this.setState(
-    {
+    this.setState({
       persons: [
         {name: 'Timothy', age: 21},
         {name: 'adun', age: 3},
         {name: newName, age: 79},
       ],
-    }
-    )
+    })
   }
   nameChangeHandler = (event) =>{
     this.setState(
       {
         persons: [
           {name: event.target.value, age: 21},
-          {name: event.target.value, age: 3},
-          {name: event.target.value, age: 79},
+          {name: 'WAHALA O', age: 3},
+          {name: 'ABAYOMI', age: 79},
         ],
-      }
-      )
+      })
+  }
+  showPersonalHandler = () =>{
+    const doesShow = this.state.showPersons
+    this.setState({
+      showPersons: !doesShow
+    })
+  }
+  deletePersonHandler = (personIndex) =>{
+    const osas = this.state.persons.split();
+    osas.splice(personIndex, 1)
+    this.setState({
+      osas: osas
+    })
   }
 
 
   render() {
+
+    let people = null
+
+    if(this.state.showPersons) {
+
+      people = (
+        <div>
+          {this.state.persons.map((pesin, index) =>{
+            return <Person
+            clicked = {()=>this.deletePersonHandler(index)} 
+            name = {pesin.name}
+            age = {pesin.age}
+            ></Person>            
+          })}
+
+        </div>
+      )
+    }
+
+
+
   return(
     <div className="App">
       <h1>HI, I AM A REACT JS DEVELOPER</h1>
-      <Person
-      changed = {this.nameChangeHandler} 
-      name = {this.state.persons[0].name} 
-      age = {this.state.persons[0].age}></Person>
-      <Person
-      changed = {this.nameChangeHandler}
-      clicked = {()=>this.switchNameHandler('PATH')}
-       name = {this.state.persons[1].name} 
-       age = {this.state.persons[1].age}></Person>
-      <Person
-      changed = {this.nameChangeHandler} 
-      name = {this.state.persons[2].name} 
-      age = {this.state.persons[2].age}></Person>
-      <button onClick={this.switchNameHandler.bind(this, 'ADUN!!##$$')}>SWITCH NAME</button>
+      <button onClick={this.showPersonalHandler}>SWITCH </button>
+
+      {people}
+      
     </div>
   )
-  }
+}
 }
 
 export default App;

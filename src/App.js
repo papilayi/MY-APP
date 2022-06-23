@@ -7,9 +7,9 @@ class App extends Component {
 
   state = {
     persons: [
-      {name: 'cassie', age: 12},
-      {name: 'donga', age: 77},
-      {name: 'kendrick', age: 7},
+      {id: 'kkk', name: 'cassie', age: 12},
+      {id: 'ggg', name: 'donga', age: 77},
+      {id: 'www', name: 'kendrick', age: 7},
     ],
     showPersons: false
   }
@@ -23,16 +23,32 @@ class App extends Component {
       ],
     })
   }
-  nameChangeHandler = (event) =>{
-    this.setState(
-      {
-        persons: [
-          {name: event.target.value, age: 21},
-          {name: 'WAHALA O', age: 3},
-          {name: 'ABAYOMI', age: 79},
-        ],
-      })
+  nameChangeHandler = (event, id) =>{
+    const persinIndex = this.state.persons.findIndex(p =>{
+      return p.id === id 
+    })
+    const persoon = [...this.state.persons[persinIndex]]
+    persoon.name = event.target.value
+
+    const abiru = [...this.state.persons]
+    abiru[persinIndex] = persoon
+
+    this.setState({
+      abiru: abiru
+    })
+
   }
+  // nameChangeHandler = (event) =>{
+  //   this.setState(
+
+  //     {
+  //       persons: [
+  //         {name: event.target.value, age: 21},
+  //         {name: 'WAHALA O', age: 3},
+  //         {name: 'ABAYOMI', age: 79},
+  //       ],
+  //     })
+  // }
   showPersonalHandler = () =>{
     const doesShow = this.state.showPersons
     this.setState({
@@ -61,6 +77,8 @@ class App extends Component {
             clicked = {()=>this.deletePersonHandler(index)} 
             name = {pesin.name}
             age = {pesin.age}
+            key = {pesin.id}
+            changed = {(event)=>this.nameChangeHandler(event, pesin.id)}
             ></Person>            
           })}
 

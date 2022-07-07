@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { Component } from 'react';
 import './App.css';
 import Person from './Person/Person.js';
@@ -15,23 +14,26 @@ class App extends Component {
   }
 
   switchNameHandler = (newName) =>{
-    this.setState({
+    this.setState(
+      {
       persons: [
-        {name: 'Timothy', age: 21},
-        {name: 'adun', age: 3},
-        {name: newName, age: 79},
+        {name: 'Israel', age: 21},
+        {name: newName, age: 3},
+        {name: 'Abayomi', age: 79},
       ],
-    })
+    }
+    )
   }
   nameChangeHandler = (event) =>{
     this.setState(
       {
         persons: [
           {name: event.target.value, age: 21},
-          {name: 'WAHALA O', age: 3},
-          {name: 'ABAYOMI', age: 79},
+          {name: 'WAHALA O!', age: 3},
+          {name: 'Abayomi', age: 79},
         ],
-      })
+      }
+      )
   }
   showPersonalHandler = () =>{
     const doesShow = this.state.showPersons
@@ -40,7 +42,7 @@ class App extends Component {
     })
   }
   deletePersonHandler = (personIndex) =>{
-    const osas = this.state.persons.split();
+    const osas = this.state.persons.splice();
     osas.splice(personIndex, 1)
     this.setState({
       osas: osas
@@ -49,34 +51,33 @@ class App extends Component {
 
 
   render() {
-
+    const style = {
+      backgroundColor: 'Green',
+      color: 'white',
+      'hover': {
+        backgroundColor: 'pink'
+      }
+    }
     let people = null
-
     if(this.state.showPersons) {
-
       people = (
         <div>
           {this.state.persons.map((pesin, index) =>{
             return <Person
-            clicked = {()=>this.deletePersonHandler(index)} 
+            clicked = {()=>this.deletePersonsHandler(index)} 
             name = {pesin.name}
             age = {pesin.age}
-            ></Person>            
+            />            
           })}
-
         </div>
       )
     }
 
-
-
   return(
     <div className="App">
       <h1>HI, I AM A REACT JS DEVELOPER</h1>
-      <button onClick={this.showPersonalHandler}>SWITCH </button>
-
+      <button onClick={this.showPersonsHandler}>SWITCH </button>
       {people}
-      
     </div>
   )
 }
